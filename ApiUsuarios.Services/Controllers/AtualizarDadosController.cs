@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiUsuarios.Services.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiUsuarios.Services.Controllers
@@ -8,7 +9,7 @@ namespace ApiUsuarios.Services.Controllers
     public class AtualizarDadosController : ControllerBase
     {
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(AtualizarDadosPutModel model)
         {
             return Ok();
         }
