@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ApiUsuarios.Services.Models
+namespace ApiUsuarios.Application.Models
 {
     public class AtualizarDadosPutModel
     {

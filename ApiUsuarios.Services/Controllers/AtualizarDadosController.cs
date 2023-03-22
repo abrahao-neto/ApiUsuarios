@@ -1,4 +1,4 @@
-﻿using ApiUsuarios.Services.Models;
+﻿using ApiUsuarios.Application.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

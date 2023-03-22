@@ -1,5 +1,5 @@
-﻿using ApiUsuarios.Services.Configurations.Jwt;
-using ApiUsuarios.Services.Models;
+﻿using ApiUsuarios.Application.Models;
+using ApiUsuarios.Services.Configurations.Jwt;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
