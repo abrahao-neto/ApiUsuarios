@@ -1,31 +1,18 @@
-﻿using ApiUsuarios.Application.Interfaces;
-using ApiUsuarios.Application.Models;
-using ApiUsuarios.Domain.Interfaces.Services;
+﻿using ApiUsuarios.Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiUsuarios.Application.Services
+namespace ApiUsuarios.Application.Interfaces
 {
-    public class UsuarioAppService : IUsuarioAppService
+    /// <summary>
+    /// Serviços da camada de aplicação para Usuario
+    /// </summary>
+    public interface IUsuarioAppService
     {
-        //atributo
-        private readonly IUsuarioDomainService? _usuarioDomainService;
-
-        //construtor para injeção de dependência
-        public UsuarioAppService(IUsuarioDomainService? usuarioDomainService)
-        {
-            _usuarioDomainService = usuarioDomainService;
-        }
-
-        public void CriarConta(CriarContaPostModel model)
-        {
-            throw new NotImplementedException();
-        }
+        void CriarConta(CriarContaPostModel model);
     }
 }
-
-
 
