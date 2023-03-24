@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiUsuarios.Application\ApiUsuarios.Application.csproj" />
+    <ProjectReference Include="..\ApiUsuarios.Domain\ApiUsuarios.Domain.csproj" />
+    <ProjectReference Include="..\ApiUsuarios.Infra.Data\ApiUsuarios.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

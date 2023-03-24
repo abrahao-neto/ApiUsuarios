@@ -2,6 +2,9 @@
 
 namespace ApiUsuarios.Application.Models
 {
+    /// <summary>
+    /// Model para criar conta do usuário
+    /// </summary>
     public class CriarContaPostModel
     {
         [RegularExpression("^[A-Za-zÀ-Üà-ü\\s]{6,150}$", ErrorMessage = "Por favor, informe um nome válido de 6 a 150 caracteres.")]

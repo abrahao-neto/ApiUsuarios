@@ -12,7 +12,7 @@ namespace ApiUsuarios.Application.Interfaces
     /// </summary>
     public interface IUsuarioAppService
     {
-        void CriarConta(CriarContaPostModel model);
+        UsuarioModel CriarConta(CriarContaPostModel model);
     }
 }
 
