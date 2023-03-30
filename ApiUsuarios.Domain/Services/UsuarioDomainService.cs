@@ -2,6 +2,7 @@
 using ApiUsuarios.Domain.Interfaces.Repositories;
 using ApiUsuarios.Domain.Interfaces.Services;
 using ApiUsuarios.Domain.Models;
+using Bogus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +42,47 @@ namespace ApiUsuarios.Domain.Services
 
             _usuarioRepository.Add(usuario);
         }
+
+        public Usuario Autenticar(string email, string senha)
+        {
+            #region Consultar os dados do usuário através do email e da senha
+
+            senha = MD5Helper.Encrypt(senha);
+            var usuario = _usuarioRepository.Get(u => u.Email.Equals(email) && u.Senha.Equals(senha));
+
+            if (usuario == null)
+                throw new ArgumentException("Acesso negado, usuário não encontrado.");
+
+            #endregion
+
+            return usuario;
+        }
+
+        public Usuario RecuperarSenha(string email)
+        {
+            #region Consultar  os dados do usuário atráves do email
+
+            var usuario = _usuarioRepository.Get(u => u.Email.Equals(email));
+            if (usuario == null)
+                throw new ArgumentException("Usuario inválido, verifique o email informado");
+
+            #endregion
+
+            #region Gerando uma nova senha para o usuário e atualizar no banco de dados
+
+            var faker = new Faker();
+            var novaSenha = $"{faker.Internet.Password(8)}@";
+
+            usuario.Senha = MD5Helper.Encrypt(novaSenha);
+            _usuarioRepository.Update(usuario);
+
+            #endregion
+
+            #region Enviar para uma fila a solicitação de envio de emails
+            //TODO
+            #endregion
+
+            return usuario;
+        }
     }
 }
-
-
-

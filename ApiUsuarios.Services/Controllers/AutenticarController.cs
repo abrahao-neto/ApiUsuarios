@@ -1,7 +1,8 @@
-﻿using ApiUsuarios.Application.Models;
-using ApiUsuarios.Services.Configurations.Jwt;
+﻿using ApiUsuarios.Services.Configurations.Jwt;
+using ApiUsuarios.Application.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ApiUsuarios.Application.Interfaces;
 
 namespace ApiUsuarios.Services.Controllers
 {
@@ -11,33 +12,46 @@ namespace ApiUsuarios.Services.Controllers
     {
         //atributo
         private readonly JwtTokenCreator? _jwtTokenCreator;
+        private readonly IUsuarioAppService _usuarioAppService;
 
         //construtor com entrada de argumentos (injeção de dependência)
-        public AutenticarController(JwtTokenCreator? jwtTokenCreator)
+        public AutenticarController(JwtTokenCreator? jwtTokenCreator, IUsuarioAppService usuarioAppService)
         {
             _jwtTokenCreator = jwtTokenCreator;
+            _usuarioAppService = usuarioAppService;
         }
 
         [HttpPost]
         public IActionResult Post(AutenticarPostModel model)
         {
-            var email = "admin@cotiinformatica.com.br";
-            var senha = "@Admin123";
-
-            if (email.Equals(model.Email) && senha.Equals(model.Senha))
+            try
             {
-                return Ok(new
+                var usuario = _usuarioAppService.Autenticar(model);
+
+                //HTTP 200 => OK
+                return StatusCode(200, new
                 {
-                    mensagem = "Usuário autenticado com sucesso",
-                    usuario = email,
-                    token = _jwtTokenCreator.GenerateToken(model.Email)
+                    message = "Usuário autenticado com sucesso",
+                    usuario, //dados do usuário
+                    token = _jwtTokenCreator.GenerateToken(usuario.Email)
                 });
             }
-
-            return Unauthorized(new { erro = "Acesso negado." });
+            catch (ArgumentException e)
+            {
+                //HTTP 401 => UNAUTHORIZED
+                return StatusCode(401, new
+                {
+                    error = e.Message
+                });
+            }
+            catch (Exception e)
+            {
+                //HTTP 500 => INTERNAL SERVER ERROR
+                return StatusCode(500, new
+                {
+                    error = e.Message
+                });
+            }
         }
     }
 }
-
-
-

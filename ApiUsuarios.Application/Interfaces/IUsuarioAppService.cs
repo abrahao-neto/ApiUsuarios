@@ -13,6 +13,7 @@ namespace ApiUsuarios.Application.Interfaces
     public interface IUsuarioAppService
     {
         UsuarioModel CriarConta(CriarContaPostModel model);
+        UsuarioModel Autenticar(AutenticarPostModel model);
+        UsuarioModel RecuperarSenha(RecuperarSenhaPostModel model);
     }
 }
-

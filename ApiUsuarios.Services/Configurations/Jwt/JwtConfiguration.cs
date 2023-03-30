@@ -45,6 +45,3 @@ namespace ApiUsuarios.Services.Configurations.Jwt
         }
     }
 }
-
-
-

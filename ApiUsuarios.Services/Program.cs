@@ -26,7 +26,6 @@ builder.Services.AddTransient<IUsuarioAppService, UsuarioAppService>();
 builder.Services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,8 +42,5 @@ app.MapControllers();
 
 app.Run();
 
-//tornar a classe Program.cs pública
+//tornar a classe Program.cs pública..
 public partial class Program { }
-
-
-

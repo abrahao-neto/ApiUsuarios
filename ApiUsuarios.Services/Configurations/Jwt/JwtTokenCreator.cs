@@ -22,7 +22,7 @@ namespace ApiUsuarios.Services.Configurations.Jwt
         /// </summary>
         /// <param name="user">Identificação do usuário</param>
         public string GenerateToken(string user)
-        {
+        {            
             var tokenHandler = new JwtSecurityTokenHandler();
 
             //capturar a chave secreta antifalsificação (SecretKey)
@@ -48,6 +48,3 @@ namespace ApiUsuarios.Services.Configurations.Jwt
         }
     }
 }
-
-
-

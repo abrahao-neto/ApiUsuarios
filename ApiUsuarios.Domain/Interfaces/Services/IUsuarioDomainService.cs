@@ -16,9 +16,17 @@ namespace ApiUsuarios.Domain.Interfaces.Services
         /// Método para implementar o cadastro de um usuário
         /// </summary>
         void CriarUsuario(Usuario usuario);
+
+        /// <summary>
+        /// Método para realizar a autenticação do usuário
+        /// </summary>
+        Usuario Autenticar(string email, string senha);
+
+        /// <summary>
+        /// Método para realizar a recuperação da senha do usuário
+        /// </summary>
+        Usuario RecuperarSenha(string email);
     }
 }
-
-
 
 

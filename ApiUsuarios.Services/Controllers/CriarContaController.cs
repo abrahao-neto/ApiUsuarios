@@ -32,15 +32,15 @@ namespace ApiUsuarios.Services.Controllers
                     usuario //dados do usuário
                 });
             }
-            catch (ArgumentException e)
+            catch(ArgumentException e)
             {
                 //HTTP 400 => BAD REQUEST
                 return StatusCode(400, new
                 {
-                    error = e.Message                
+                    error = e.Message
                 });
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 //HTTP 500 => INTERNAL SERVER ERROR
                 return StatusCode(500, new
@@ -51,8 +51,3 @@ namespace ApiUsuarios.Services.Controllers
         }
     }
 }
-
-
-
-
-

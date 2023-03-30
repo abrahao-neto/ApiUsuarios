@@ -13,7 +13,7 @@ namespace ApiUsuarios.Application.Services
 {
     public class UsuarioAppService : IUsuarioAppService
     {
-        //atributo
+        //atributos
         private readonly IUsuarioDomainService? _usuarioDomainService;
         private readonly IMapper _mapper;
 
@@ -34,10 +34,26 @@ namespace ApiUsuarios.Application.Services
 
             //retornar os dados do usuário criado
             return _mapper.Map<UsuarioModel>(usuario);
+        }
 
+
+        public UsuarioModel Autenticar(AutenticarPostModel model)
+        {
+            //consultar os dados do usuário no dominio
+            var usuario = _usuarioDomainService.Autenticar(model.Email, model.Senha);
+
+            //retornar os dados do usuário criado
+            return _mapper.Map<UsuarioModel>(usuario);
+
+        }
+
+        public UsuarioModel RecuperarSenha(RecuperarSenhaPostModel model)
+        {
+            //gerar a recuperação de senha no domínio
+            var usuarrio = _usuarioDomainService.RecuperarSenha(model.Email);
+
+            //retornar os dados do usuáeio
+            return _mapper.Map<UsuarioModel>(usuarrio);
         }
     }
 }
-
-
-

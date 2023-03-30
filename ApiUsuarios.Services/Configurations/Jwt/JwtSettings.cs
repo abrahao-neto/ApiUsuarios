@@ -6,6 +6,3 @@
         public int? Expiration { get; set; }
     }
 }
-
-
-
