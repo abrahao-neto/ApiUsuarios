@@ -1,8 +1,11 @@
-﻿using ApiUsuarios.Domain.Helpers;
+﻿using ApiUsuarios.Domain.DTOs;
+using ApiUsuarios.Domain.Helpers;
+using ApiUsuarios.Domain.Interfaces.Messages;
 using ApiUsuarios.Domain.Interfaces.Repositories;
 using ApiUsuarios.Domain.Interfaces.Services;
 using ApiUsuarios.Domain.Models;
 using Bogus;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +21,13 @@ namespace ApiUsuarios.Domain.Services
     {
         //atributo
         private readonly IUsuarioRepository? _usuarioRepository;
+        private readonly IMessageProducer? _messageProducer;
 
         //construtor para inicialização dos atributos (injeção de dependência)
-        public UsuarioDomainService(IUsuarioRepository? usuarioRepository)
+        public UsuarioDomainService(IUsuarioRepository? usuarioRepository, IMessageProducer? messageProducer)
         {
             _usuarioRepository = usuarioRepository;
+            _messageProducer = messageProducer;
         }
 
         public void CriarUsuario(Usuario usuario)
@@ -79,8 +84,28 @@ namespace ApiUsuarios.Domain.Services
             #endregion
 
             #region Enviar para uma fila a solicitação de envio de emails
-            //TODO
+
+            var emailMessageDTO = new EmailMessageDTO
+            {
+                MailTo = usuario.Email,
+                Subject = "Recuperação de senha de acesso - API Usuários",
+                IsBodyHtml = true,
+                Body = $@"
+                    <div>
+                        <p>Olá {usuario.Nome}, uma nova senha foi gerada com sucesso.</p>
+                        <p>Utilize a senha <strong>{novaSenha}</strong> para acessar sua conta.</p>
+                        <p>Atenciosamente,</p>
+                        <p>Equipe API Usuários.</p>
+                    </div>
+                "
+            };
+
+            //enviar a mensagem para a fila do RabbitMQ
+            _messageProducer.Send(JsonConvert.SerializeObject(emailMessageDTO));
+
+
             #endregion
+
 
             return usuario;
         }

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\ApiUsuarios.Application\ApiUsuarios.Application.csproj" />
     <ProjectReference Include="..\ApiUsuarios.Domain\ApiUsuarios.Domain.csproj" />
     <ProjectReference Include="..\ApiUsuarios.Infra.Data\ApiUsuarios.Infra.Data.csproj" />
+    <ProjectReference Include="..\ApiUsuarios.Infra.Messages\ApiUsuarios.Infra.Messages.csproj" />
   </ItemGroup>
 
 </Project>
